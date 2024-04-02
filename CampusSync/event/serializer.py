@@ -10,13 +10,10 @@ class HostSerializer(serializers.ModelSerializer):
         # fields = ['id', 'name', 'description', 'event_date'
         #           , 'date_posted',  'poster', 'host', 'upvotes', 'downvotes', 'saved_by']
 
-        fields = '__all__'
+        fields = ['id']
 
 class EventSerializer(serializers.ModelSerializer):
-    host = HostSerializer(many=False)
+    host = serializers.PrimaryKeyRelatedField(queryset=Host.objects.all())
     class Meta:
         model = Event
-        # fields = ['id', 'name', 'description', 'event_date'
-        #           , 'date_posted',  'poster', 'host', 'upvotes', 'downvotes', 'saved_by']
-
         fields = '__all__'
