@@ -26,5 +26,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('event/', include(event_urls)), 
     re_path(r'^$', schema_view, name='swagger'),
+    path('', include(event_urls)), 
 
 ]

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'user',
     'django_filters',
     'rest_framework_swagger',
+
 ]
 
 MIDDLEWARE = [
@@ -135,7 +136,9 @@ REST_FRAMEWORK = {
     # 'DEFAULT_PERMISSION_CLASSES': [
     #     'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     # ],
+
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 }
 
@@ -148,4 +151,5 @@ MEDIA_ROOT = BASE_DIR /'media'
 AUTH_USER_MODEL = 'user.User'
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_USERNAME_REQUIRED = False
+
 
