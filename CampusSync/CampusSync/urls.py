@@ -22,7 +22,7 @@ from rest_framework_swagger.views import get_swagger_view
 from django.conf.urls.static import static
 from django.conf import settings
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-
+# from user.views import 
 
 schema_view = get_swagger_view(title='Pastebin API')
 
