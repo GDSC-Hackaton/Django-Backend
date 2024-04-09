@@ -38,14 +38,6 @@ def event_notifications(request):
                         'event_notifications': str(event.notifications)})
     
     return Response({'status': 'Failed, no such event'})
-
-
-"""
-<button onClick={() => handleFilter("recent")}>recent</button>
-<button onClick={() => handleFilter("old")}>old</button>
-<button onClick={() => handleFilter("upvote")}>upvote</button>
-<button onClick={() => handleFilter("downvote")}>downvote</button>
-"""
     
 
 @api_view(['GET'])
@@ -95,7 +87,7 @@ def search(request):
     if request.method != 'GET':
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
-    
+    #assuming the search-bar is event name 
     if 'event_name' not in request.data:
         return Response({'error': 'Missing required field: event_name'}, status=status.HTTP_400_BAD_REQUEST)
 
