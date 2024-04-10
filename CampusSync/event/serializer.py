@@ -1,6 +1,8 @@
 from rest_framework import serializers
-from .models import Event
-from user.models import Host
+
+from .models import Event, Comment
+from user.models import Host, User
+
 
 
 
@@ -16,13 +18,14 @@ class EventSerializer(serializers.ModelSerializer):
     poster = serializers.ImageField(read_only=False, required=False)
     upvotes = serializers.IntegerField(read_only=True)
     downvotes = serializers.IntegerField(read_only=True)
+    address = serializers.CharField(required=True)
     # atendees = serializers.PrimaryKeyRelatedField( read_only=True)
     # saved_by = serializers.PrimaryKeyRelatedField( read_only=True)
 
     class Meta:
         model = Event
-        fields = ['id', 'host_id', 'name', 'description', 'event_date'
-                  ,'date_posted', 'poster', 'upvotes', 'downvotes']
+        fields = ['id', 'host_id', 'host', 'name', 'description', 'event_date'
+                  ,'date_posted', 'poster', 'upvotes', 'downvotes', 'address']
 
     def create(self, validated_data):
         # Remove 'host_id' from validated_data since it's not a field of Event model
@@ -34,6 +37,33 @@ class EventSerializer(serializers.ModelSerializer):
         # Assuming 'host' is the foreign key field in Event model
         host_instance = Host.objects.get(pk=host_id)
         event.host = host_instance
-        event.save()
+        # event.save()
         
         return event
+    
+
+class AttendeesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'name', 'email','profile_pic']
+
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = ['id', 'content', 'upvotes', 'date_posted', 'event']
+        read_only_fields = ('id', 'date_posted', 'upvotes', 'downvotes')
+
+    def create(self, validated_data):
+        # Assuming `event` is provided in the request to link the comment
+        event = validated_data.pop('event', None)
+        if event:
+            # try:
+            #     event = Event.objects.get(id=event_id)
+            # except Event.DoesNotExist:
+            #     raise serializers.ValidationError({'event': 'Invalid event ID'})
+            comment = Comment.objects.create(event=event, **validated_data)
+            comments = Comment.objects.filter(event = event)
+            return comments
+        else:
+            raise serializers.ValidationError({'event': 'Event ID is required'})
+
