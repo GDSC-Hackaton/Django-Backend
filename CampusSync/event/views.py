@@ -129,7 +129,7 @@ class CommentCreateView(generics.CreateAPIView):
         self.perform_create(serializer)
         
         event = serializer.validated_data.get('event')
-        comments = Comment.objects.filter(event=event)
+        comments = Comment.objects.filter(event=event).order_by("-date_posted")
         
         # Modify the serializer class if needed to include many=True
         comments_serializer = CommentSerializer(comments, many=True)
