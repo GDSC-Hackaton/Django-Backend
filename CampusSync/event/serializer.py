@@ -21,14 +21,8 @@ class EventSerializer(serializers.ModelSerializer):
     downvotes = serializers.IntegerField(read_only=True)
     address = serializers.CharField(required=True)
 
-    #atendees = serializers.PrimaryKeyRelatedField( read_only=True)
     host = HostSerializer(required=False, read_only=True)
     poster = serializers.ImageField(required=False, read_only=False)    
-
-    # atendees = serializers.PrimaryKeyRelatedField( read_only=True)
-
-    #atendees = serializers.PrimaryKeyRelatedField( read_only=True)
-    # saved_by = serializers.PrimaryKeyRelatedField( read_only=True)
 
     class Meta:
         model = Event
@@ -57,7 +51,6 @@ class CommentSerializer(serializers.ModelSerializer):
     commentor = UserSerializer(read_only=True)
     commentor_id = serializers.PrimaryKeyRelatedField(
         queryset=User.objects.all(), source='commentor', write_only=True)
-    # author = RelatedFieldAlternative(queryset=User.objects.all(), serializer=UserSerializer)
 
     class Meta:
         model = Comment

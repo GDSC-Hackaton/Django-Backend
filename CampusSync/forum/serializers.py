@@ -26,19 +26,11 @@ class QuestionSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(
         read_only=True,
         )
-    # author = RelatedFieldAlternative(queryset=User.objects.all(), serializer=UserSerializer)
 
     class Meta:
         model = Question
         exclude = ['upvoted_users', 'downvoted_users']
-        # fields = ['id', 'question','author_id', 'author', 'is_answered', 'created_date', 'modified_date', 'upvotes', 'downvotes']
-        # fields = "__all__"
-        # depth = 1
 
-    # def to_representation(self, instance):
-    #     response = super().to_representation(instance)
-    #     response['author'] = UserSerializer(instance.author).data
-    #     return response
 
 class AnswerSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)

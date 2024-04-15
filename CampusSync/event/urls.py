@@ -1,6 +1,6 @@
-from .views import (EventViewSet
-                    , RSVPviewset
-                    , order_by_old,
+from .views import (EventViewSet,
+                      RSVPviewset,
+                      order_by_old,
                       order_by_downvote,
                       order_by_recent,
                       order_by_upvote, 

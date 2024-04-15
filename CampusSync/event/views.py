@@ -1,30 +1,18 @@
 from rest_framework.decorators import api_view, permission_classes
 from django.shortcuts import render
 from rest_framework.response import Response
-from .serializer import EventSerializer
-from .models import Event
-
+from .models import Event, Comment
 
 import mimetypes
 from django.http import HttpResponse
-
 from django.shortcuts import render, get_object_or_404
-
 from rest_framework.response import Response
-
-from .serializer import EventSerializer, CommentSerializer, AttendeesSerializer
+from .serializer import EventSerializer, CommentSerializer, AttendeesSerializer, EventSerializer
 from user.serializer import HostSerializer
-from .models import Event, Comment
 from user.models import Host, User
-# from drf_yasg.utils import swagger_auto_schema
-from rest_framework import viewsets
-# from drf_spectacular.utils import extend_schema, OpenApiExample, inline_serializer
 from rest_framework.permissions import IsAuthenticated
+from rest_framework import generics, filters, status, viewsets
 
-from rest_framework import status
-from rest_framework import generics
-
-from rest_framework import filters
 
 
 
